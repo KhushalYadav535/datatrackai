@@ -16,7 +16,7 @@ const journeySteps = [
   {
     year: "Leadership",
     title: "Academic & Industry Advisory",
-    description: "Appointed as an industrialist member of the governing body for JNCT and engaged as a guest speaker and trainer for the Bhopal Management Association (BMA)."
+    description: "Engaged as an industrial advisory member, keynote speaker, and corporate trainer for the Bhopal Management Association (BMA)."
   },
   {
     year: "Present",

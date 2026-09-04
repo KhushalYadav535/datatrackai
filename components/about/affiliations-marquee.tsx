@@ -3,7 +3,6 @@
 export function AffiliationsMarquee() {
   const orgs = [
     "Bhopal Management Association (BMA)", 
-    "JNCT Governing Body", 
     "Cooperative Banking Consortium", 
     "Enterprise AI Systems Council",
     "MP State IT Advisory Forum",

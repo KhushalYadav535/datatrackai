@@ -31,7 +31,7 @@ export function AiAssistant() {
       return "Vocred is our flagship AI Voice Agent platform built for sub-second, human-like voice conversations in customer support and debt collections. You can test it live at vocred.com!";
     }
     if (q.includes("ashish") || q.includes("ceo") || q.includes("founder")) {
-      return "Ashish Kolarkar is the CEO & Founder of Datatrack. With 30+ years of engineering leadership and resilience, he also serves on the Governing Body at JNCT and trains executives at the Bhopal Management Association (BMA). You can reach him at ashishkolarkar@gmail.com.";
+      return "Ashish Kolarkar is the CEO & Founder of Datatrack. With 30+ years of engineering leadership and resilience, he trains executives at the Bhopal Management Association (BMA). You can reach him at ashishkolarkar@gmail.com.";
     }
     if (q.includes("society") || q.includes("aapkisociety")) {
       return "AapkiSociety (aapkisociety.in) is our comprehensive multi-tenant society management ERP that automates visitor passes, digital maintenance billing, resident communication, and committee accounts.";

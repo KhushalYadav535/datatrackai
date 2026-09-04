@@ -97,7 +97,6 @@ export function CeoProfile() {
             <div className="absolute bottom-6 left-6 right-6 p-5 bg-background/80 backdrop-blur-xl border border-foreground/15 rounded-2xl z-10 space-y-1.5 shadow-lg">
               <p className="font-mono text-[10px] tracking-widest uppercase text-muted-foreground">Advisory &amp; Institutional Governance</p>
               <p className="text-sm font-semibold text-foreground">CEO &amp; Founder at Datatrack</p>
-              <p className="text-xs text-muted-foreground">Governing Body Member at JNCT Bhopal</p>
               <p className="text-xs text-muted-foreground">Senior Corporate Trainer at Bhopal Management Association (BMA)</p>
             </div>
           </motion.div>
