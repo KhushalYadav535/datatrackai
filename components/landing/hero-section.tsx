@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ShieldCheck, Zap, Lock, Activity } from "lucide-react";
 import { AnimatedSphere } from "./animated-sphere";
 
 export function HeroSection() {
@@ -13,31 +14,34 @@ export function HeroSection() {
   }, []);
 
   return (
-    <section id="about" className="relative min-h-screen flex flex-col justify-center overflow-hidden">
+    <section id="about" className="relative min-h-[92vh] flex flex-col justify-between overflow-hidden pt-28 lg:pt-36">
+      {/* Ambient background glow */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-foreground/[0.02] dark:bg-foreground/[0.04] rounded-full blur-[140px] pointer-events-none" />
+
       {/* Animated sphere background */}
-      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[600px] h-[600px] lg:w-[800px] lg:h-[800px] opacity-40 pointer-events-none">
+      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[550px] h-[550px] lg:w-[750px] lg:h-[750px] opacity-35 dark:opacity-40 pointer-events-none transition-opacity duration-1000">
         <AnimatedSphere />
       </div>
       
-      {/* Subtle grid lines */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-30">
-        {[...Array(8)].map((_, i) => (
+      {/* Precision architectural grid lines */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20 dark:opacity-10">
+        {[...Array(6)].map((_, i) => (
           <div
             key={`h-${i}`}
             className="absolute h-px bg-foreground/10"
             style={{
-              top: `${12.5 * (i + 1)}%`,
+              top: `${16.6 * (i + 1)}%`,
               left: 0,
               right: 0,
             }}
           />
         ))}
-        {[...Array(12)].map((_, i) => (
+        {[...Array(8)].map((_, i) => (
           <div
             key={`v-${i}`}
             className="absolute w-px bg-foreground/10"
             style={{
-              left: `${8.33 * (i + 1)}%`,
+              left: `${12.5 * (i + 1)}%`,
               top: 0,
               bottom: 0,
             }}
@@ -45,88 +49,120 @@ export function HeroSection() {
         ))}
       </div>
       
-      <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-12 py-32 lg:py-40">
-        {/* Eyebrow */}
+      <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-12 flex-1 flex flex-col justify-center">
+        {/* Eyebrow Pill */}
         <div 
-          className={`mb-8 transition-all duration-700 ${
+          className={`mb-6 transition-all duration-700 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
         >
-          <span className="inline-flex items-center gap-3 text-sm font-mono text-muted-foreground">
-            <span className="w-8 h-px bg-foreground/30" />
-            AI-Native Solutions & SaaS Products
-          </span>
+          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-foreground/15 bg-foreground/[0.03] backdrop-blur-md text-xs font-mono text-foreground/80 shadow-sm">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 pulse-dot" />
+            <span className="tracking-wide">AI-Native Systems &amp; Banking Automation</span>
+            <span className="text-foreground/30">|</span>
+            <span className="text-muted-foreground hidden sm:inline">Enterprise Grade</span>
+          </div>
         </div>
         
         {/* Main headline */}
-        <div className="mb-12">
+        <div className="mb-8 max-w-5xl">
           <h1 
-            className={`text-[clamp(2.5rem,8vw,7rem)] font-display leading-[0.9] tracking-tight transition-all duration-1000 ${
+            className={`text-[clamp(2.75rem,7vw,6.25rem)] font-display leading-[0.95] tracking-tight transition-all duration-1000 ${
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
-            <span className="block">Custom Software &</span>
-            <span className="block bg-gradient-to-r from-foreground to-foreground/50 bg-clip-text text-transparent pb-2">
-              Banking Automation
+            <span className="block">Custom Software &amp;</span>
+            <span className="block font-serif-italic font-normal bg-gradient-to-r from-foreground via-foreground/90 to-foreground/50 bg-clip-text text-transparent">
+              Banking Automation.
             </span>
           </h1>
         </div>
         
-        {/* Description */}
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-end">
+        {/* Description & CTAs Grid */}
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 items-start mb-12">
           <p 
-            className={`text-lg lg:text-xl text-muted-foreground leading-relaxed max-w-2xl transition-all duration-700 delay-200 ${
+            className={`lg:col-span-7 text-lg lg:text-xl text-muted-foreground leading-relaxed transition-all duration-700 delay-200 ${
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
           >
-            We build enterprise-grade software and automation systems for financial businesses across India — from branch automation to full-scale ERP. Delivered on time, built to last. Full-stack IT consulting for <span className="font-semibold text-foreground">startups and enterprises</span> — from intelligent AI agents and cloud architecture to full-scale SaaS platforms that scale with you.
+            We engineer mission-critical automation systems and bespoke enterprise platforms for financial institutions across India. From core branch reconciliation (IBR) and autonomous AI workflows to full-scale SaaS platforms that scale without compromise.
           </p>
           
           {/* CTAs */}
           <div 
-            className={`flex flex-col sm:flex-row items-start gap-4 transition-all duration-700 delay-300 ${
+            className={`lg:col-span-5 flex flex-col sm:flex-row lg:flex-col xl:flex-row items-start gap-4 transition-all duration-700 delay-300 ${
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
           >
             <Button 
+              asChild
               size="lg" 
-              className="bg-foreground hover:bg-foreground/90 text-background px-8 h-14 text-base rounded-full group shadow-lg shadow-foreground/10"
+              className="bg-foreground hover:bg-foreground/90 text-background px-8 h-13 text-sm font-mono tracking-wider uppercase rounded-full group shadow-xl shadow-foreground/10 w-full sm:w-auto"
             >
-              Schedule Consultation
-              <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+              <Link href="#contact">
+                Schedule Consultation
+                <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+              </Link>
             </Button>
             <Button 
+              asChild
               size="lg" 
               variant="outline" 
-              className="h-14 px-8 text-base rounded-full border-foreground/20 hover:bg-foreground/5"
+              className="h-13 px-7 text-sm font-mono tracking-wider uppercase rounded-full border-foreground/20 hover:bg-foreground/5 w-full sm:w-auto"
             >
-              Explore Products
+              <Link href="#products">
+                Explore Products
+              </Link>
             </Button>
           </div>
         </div>
-        
+
+        {/* Enterprise Trust Strip */}
+        <div 
+          className={`grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 border-t border-foreground/10 transition-all duration-700 delay-400 ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          }`}
+        >
+          <div className="flex items-center gap-2.5 text-xs font-mono text-muted-foreground">
+            <ShieldCheck className="w-4 h-4 text-foreground shrink-0" />
+            <span>RBI Guideline Compliant</span>
+          </div>
+          <div className="flex items-center gap-2.5 text-xs font-mono text-muted-foreground">
+            <Lock className="w-4 h-4 text-foreground shrink-0" />
+            <span>Bank-Grade Encryption</span>
+          </div>
+          <div className="flex items-center gap-2.5 text-xs font-mono text-muted-foreground">
+            <Activity className="w-4 h-4 text-foreground shrink-0" />
+            <span>99.99% High Availability</span>
+          </div>
+          <div className="flex items-center gap-2.5 text-xs font-mono text-muted-foreground">
+            <Zap className="w-4 h-4 text-foreground shrink-0" />
+            <span>Sub-Second Reconciliation</span>
+          </div>
+        </div>
       </div>
       
-      {/* Stats marquee - full width outside container */}
+      {/* Bottom Live Metrics Marquee */}
       <div 
-        className={`absolute bottom-24 left-0 right-0 transition-all duration-700 delay-500 ${
+        className={`w-full border-t border-b border-foreground/10 bg-foreground/[0.015] py-5 mt-16 mask-marquee overflow-hidden transition-all duration-700 delay-500 ${
           isVisible ? "opacity-100" : "opacity-0"
         }`}
       >
         <div className="flex gap-16 marquee whitespace-nowrap">
           {[...Array(2)].map((_, i) => (
-            <div key={i} className="flex gap-16">
+            <div key={i} className="flex gap-16 items-center shrink-0">
               {[
-                { value: "10x", label: "faster reconciliation", company: "REGIONAL BANKS" },
-                { value: "100%", label: "compliance guaranteed", company: "FINANCE SECTOR" },
-                { value: "24/7", label: "automated processing", company: "ENTERPRISE ERP" },
-                { value: "Zero", label: "data loss incidence", company: "CORE BANKING" },
-              ].map((stat) => (
-                <div key={`${stat.company}-${i}`} className="flex items-baseline gap-4">
-                  <span className="text-4xl lg:text-5xl font-display">{stat.value}</span>
-                  <span className="text-sm text-muted-foreground">
+                { value: "10x", label: "Faster Reconciliation", company: "COOPERATIVE & REGIONAL BANKS" },
+                { value: "100%", label: "Compliance Guaranteed", company: "FINANCIAL SECTOR AUDITS" },
+                { value: "24/7", label: "Automated Processing", company: "ENTERPRISE ERP WORKFLOWS" },
+                { value: "Zero", label: "Data Loss Incidence", company: "MISSION CRITICAL DATA" },
+                { value: "50+", label: "Financial Institutions", company: "DEPLOYED ACROSS INDIA" },
+              ].map((stat, sIdx) => (
+                <div key={`${stat.company}-${i}-${sIdx}`} className="flex items-baseline gap-4">
+                  <span className="text-3xl lg:text-4xl font-display tracking-tight text-foreground">{stat.value}</span>
+                  <span className="text-xs text-muted-foreground uppercase font-mono">
                     {stat.label}
-                    <span className="block font-mono text-xs mt-1">{stat.company}</span>
+                    <span className="block text-[10px] text-foreground/40 mt-0.5 tracking-wider">{stat.company}</span>
                   </span>
                 </div>
               ))}
@@ -134,9 +170,6 @@ export function HeroSection() {
           ))}
         </div>
       </div>
-      
-      {/* Scroll indicator */}
-      
     </section>
   );
 }

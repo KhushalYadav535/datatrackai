@@ -33,13 +33,17 @@ export function Preloader() {
           <div className="flex flex-col items-center gap-6">
             {/* Glowing Logo */}
             <motion.div 
-              initial={{ opacity: 0, scale: 0.8 }}
+              initial={{ opacity: 0, scale: 0.85 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5 }}
-              className="text-4xl md:text-6xl font-display tracking-tight uppercase relative"
+              transition={{ duration: 0.6 }}
+              className="relative px-6 py-2"
             >
-              <div className="absolute inset-0 blur-2xl opacity-50 bg-foreground mix-blend-overlay"></div>
-              <span className="relative z-10">DATATRACK</span>
+              <div className="absolute inset-0 blur-3xl opacity-25 bg-foreground"></div>
+              <img 
+                src="/datatrack-logo-transparent.png" 
+                alt="DataTrack"
+                className="relative z-10 h-14 md:h-18 w-auto object-contain dark:invert"
+              />
             </motion.div>
             
             {/* Progress Counter */}

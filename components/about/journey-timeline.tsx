@@ -35,9 +35,12 @@ export function JourneyTimeline() {
             The Journey
             <span className="w-8 h-px bg-foreground/30" />
           </span>
-          <h2 className="text-4xl lg:text-5xl font-display tracking-tight">
-            Milestones & Impact.
+          <h2 className="text-4xl lg:text-6xl font-display tracking-tight mb-4">
+            30+ Years of Resilience.
           </h2>
+          <p className="text-muted-foreground text-lg max-w-xl mx-auto">
+            Adapting, learning, and thriving through three decades of enterprise technology evolution.
+          </p>
         </div>
 
         <div className="relative">

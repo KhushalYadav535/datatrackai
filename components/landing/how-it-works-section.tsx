@@ -1,49 +1,66 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Copy, Check, Terminal, Play } from "lucide-react";
 
 const steps = [
   {
-    number: "I",
-    title: "Discovery & Planning",
-    description: "We analyze your business needs and design a scalable, secure architecture tailored to your goals.",
-    code: `// Phase 1: Architecture Design
-const project = datatrack.init({
-  industry: 'banking',
-  modules: ['erp', 'ai-agent', 'payroll'],
-  compliance: 'strict'
+    number: "01",
+    duration: "Week 1 - 2",
+    title: "Discovery & System Architecture",
+    description: "Deep audit of legacy workflows, regulatory compliance specs (RBI/Banking standards), and architectural design for high concurrency.",
+    fileName: "architecture.config.ts",
+    code: `// Phase 1: Architecture & Compliance Spec
+const system = await datatrack.architect({
+  domain: 'banking-automation',
+  modules: ['ibr-reconciliation', 'ai-voice-agent', 'erp'],
+  compliance: {
+    rbiGuidelines: true,
+    dataSovereignty: 'IN-WEST',
+    encryption: 'AES-256-GCM'
+  },
+  slaTarget: '99.99%'
 });`,
   },
   {
-    number: "II",
-    title: "Agile Development",
-    description: "Our expert engineering team builds your custom solution using modern tech stacks and AI workflows.",
-    code: `// Phase 2: Implementation
-datatrack.build({
-  frontend: 'React/Next.js',
-  backend: 'Node.js/Microservices',
-  ai: 'Custom LLM Integration',
-  testing: 'Automated'
+    number: "02",
+    duration: "Week 3 - 6",
+    title: "Agile Development & Agentic AI",
+    description: "Custom core development with robust microservices, fine-tuned agentic models, automated test coverage, and sandbox simulation.",
+    fileName: "engine.pipeline.ts",
+    code: `// Phase 2: Implementation & AI Integration
+const deployment = await datatrack.build({
+  engine: 'Microservices + Distributed Queues',
+  aiWorkflows: {
+    agentType: 'Autonomous Reconciler',
+    models: ['Llama-3-Enterprise', 'Custom-Voice-V2'],
+    zeroHallucinationCheck: true
+  },
+  testsPassed: '1,420 / 1,420'
 });`,
   },
   {
-    number: "III",
-    title: "Delivery & Support",
-    description: "We deploy your enterprise software globally with zero downtime, followed by dedicated 24/7 support.",
-    code: `// Phase 3: Go Live
-datatrack.deploy({
-  environment: 'production',
-  monitoring: true,
-  support: '24/7 SLA'
+    number: "03",
+    duration: "Ongoing SLA",
+    title: "Zero-Downtime Go Live & 24/7 SLA",
+    description: "Enterprise deployment with real-time audit tracing, instant failover redundancy, and proactive 24/7 technical monitoring.",
+    fileName: "production.status.ts",
+    code: `// Phase 3: Production Rollout
+await datatrack.deploy({
+  environment: 'production-primary',
+  failover: 'hot-standby',
+  realTimeMetrics: true,
+  supportSLA: '24/7 Priority Hotline'
 });
 
-console.log('System is live! 🚀');`,
+console.log('System Status: 100% Operational 🚀');`,
   },
 ];
 
 export function HowItWorksSection() {
   const [activeStep, setActiveStep] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
+  const [copied, setCopied] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -58,20 +75,19 @@ export function HowItWorksSection() {
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveStep((prev) => (prev + 1) % steps.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
+  const handleCopy = () => {
+    navigator.clipboard.writeText(steps[activeStep].code);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   return (
     <section
       id="how-it-works"
       ref={sectionRef}
-      className="relative py-24 lg:py-32 bg-foreground text-background overflow-hidden"
+      className="relative py-28 lg:py-36 bg-foreground text-background overflow-hidden"
     >
-      {/* Diagonal lines pattern */}
+      {/* Background ambient pattern */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
         <div className="absolute inset-0" style={{
           backgroundImage: `repeating-linear-gradient(
@@ -87,10 +103,13 @@ export function HowItWorksSection() {
       <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-12">
         {/* Header */}
         <div className="mb-16 lg:mb-24">
-          <span className="inline-flex items-center gap-3 text-sm font-mono text-background/50 mb-6">
-            <span className="w-8 h-px bg-background/30" />
-            Process
-          </span>
+          <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-background/20 bg-background/5 text-xs font-mono uppercase tracking-widest text-background/70 mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+            <span>Methodology</span>
+            <span className="text-background/40">|</span>
+            <span>Engineering Process</span>
+          </div>
+
           <h2
             className={`text-4xl lg:text-6xl font-display tracking-tight transition-all duration-700 ${
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
@@ -98,42 +117,50 @@ export function HowItWorksSection() {
           >
             Three steps.
             <br />
-            <span className="text-background/50">Infinite possibilities.</span>
+            <span className="font-serif-italic font-normal text-background/50">
+              Infinite enterprise possibilities.
+            </span>
           </h2>
         </div>
 
-        {/* Main content */}
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
-          {/* Steps */}
-          <div className="space-y-0">
+        {/* Main content grid */}
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          {/* Steps selector */}
+          <div className="lg:col-span-6 space-y-2">
             {steps.map((step, index) => (
               <button
                 key={step.number}
                 type="button"
                 onClick={() => setActiveStep(index)}
-                className={`w-full text-left py-8 border-b border-background/10 transition-all duration-500 group ${
-                  activeStep === index ? "opacity-100" : "opacity-40 hover:opacity-70"
+                className={`w-full text-left p-6 rounded-2xl border transition-all duration-400 group cursor-pointer ${
+                  activeStep === index 
+                    ? "bg-background/10 border-background/25 shadow-lg" 
+                    : "border-transparent hover:border-background/10 hover:bg-background/[0.03] opacity-60 hover:opacity-90"
                 }`}
               >
-                <div className="flex items-start gap-6">
-                  <span className="font-display text-3xl text-background/30">{step.number}</span>
+                <div className="flex items-start gap-5">
+                  <span className="font-mono text-xs tracking-widest text-background/40 px-2 py-1 rounded bg-background/5 shrink-0 mt-1">
+                    {step.number}
+                  </span>
+                  
                   <div className="flex-1">
-                    <h3 className="text-2xl lg:text-3xl font-display mb-3 group-hover:translate-x-2 transition-transform duration-300">
-                      {step.title}
-                    </h3>
-                    <p className="text-background/60 leading-relaxed">
+                    <div className="flex items-center justify-between gap-2 mb-2">
+                      <h3 className="text-xl lg:text-2xl font-display text-background group-hover:translate-x-1 transition-transform duration-300">
+                        {step.title}
+                      </h3>
+                      <span className="text-[11px] font-mono text-background/50 border border-background/15 px-2 py-0.5 rounded-full shrink-0">
+                        {step.duration}
+                      </span>
+                    </div>
+
+                    <p className="text-sm text-background/70 leading-relaxed">
                       {step.description}
                     </p>
                     
-                    {/* Progress indicator */}
+                    {/* Active progress bar */}
                     {activeStep === index && (
-                      <div className="mt-4 h-px bg-background/20 overflow-hidden">
-                        <div 
-                          className="h-full bg-background w-0"
-                          style={{
-                            animation: 'progress 5s linear forwards'
-                          }}
-                        />
+                      <div className="mt-4 h-0.5 bg-background/20 rounded-full overflow-hidden">
+                        <div className="h-full bg-background rounded-full w-full transition-all duration-500" />
                       </div>
                     )}
                   </div>
@@ -142,91 +169,73 @@ export function HowItWorksSection() {
             ))}
           </div>
 
-          {/* Code display */}
-          <div className="lg:sticky lg:top-32 self-start">
-            <div className="border border-background/10 overflow-hidden">
-              {/* Window header */}
-              <div className="px-6 py-4 border-b border-background/10 flex items-center justify-between">
-                <div className="flex gap-2">
-                  <div className="w-3 h-3 rounded-full bg-background/20" />
-                  <div className="w-3 h-3 rounded-full bg-background/20" />
-                  <div className="w-3 h-3 rounded-full bg-background/20" />
+          {/* Code IDE display */}
+          <div className="lg:col-span-6 lg:sticky lg:top-28">
+            <div className="rounded-2xl border border-background/20 bg-background/[0.04] backdrop-blur-xl overflow-hidden shadow-2xl">
+              {/* Window Header */}
+              <div className="px-5 py-3.5 border-b border-background/15 flex items-center justify-between bg-background/[0.03]">
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-rose-500/80" />
+                  <div className="w-3 h-3 rounded-full bg-amber-500/80" />
+                  <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
+                  <span className="ml-3 text-xs font-mono text-background/60 flex items-center gap-1.5">
+                    <Terminal className="w-3.5 h-3.5" />
+                    {steps[activeStep].fileName}
+                  </span>
                 </div>
-                <span className="text-xs font-mono text-background/40">workflow.ts</span>
+
+                <button
+                  onClick={handleCopy}
+                  className="flex items-center gap-1.5 text-xs font-mono text-background/60 hover:text-background px-2.5 py-1 rounded bg-background/5 hover:bg-background/15 transition-all"
+                  aria-label="Copy snippet"
+                >
+                  {copied ? (
+                    <>
+                      <Check className="w-3.5 h-3.5 text-emerald-400" />
+                      <span className="text-emerald-400">Copied</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-3.5 h-3.5" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
               </div>
 
-              {/* Code content */}
-              <div className="p-8 font-mono text-sm min-h-[280px]">
-                <pre className="text-background/70">
-                  {steps[activeStep].code.split('\n').map((line, lineIndex) => (
-                    <div 
-                      key={`${activeStep}-${lineIndex}`} 
-                      className="leading-loose code-line-reveal"
-                      style={{ 
-                        animationDelay: `${lineIndex * 80}ms`,
-                      }}
-                    >
-                      <span className="text-background/20 select-none w-8 inline-block">{lineIndex + 1}</span>
-                      <span className="inline-flex">
-                        {line.split('').map((char, charIndex) => (
-                          <span
-                            key={`${activeStep}-${lineIndex}-${charIndex}`}
-                            className="code-char-reveal"
-                            style={{
-                              animationDelay: `${lineIndex * 80 + charIndex * 15}ms`,
-                            }}
-                          >
-                            {char === ' ' ? '\u00A0' : char}
-                          </span>
-                        ))}
-                      </span>
-                    </div>
-                  ))}
+              {/* Code Content */}
+              <div className="p-6 font-mono text-xs md:text-sm min-h-[300px] overflow-x-auto bg-black/40">
+                <pre className="text-background/80 leading-relaxed">
+                  {steps[activeStep].code.split('\n').map((line, idx) => {
+                    const isComment = line.trim().startsWith('//');
+                    const isKeyword = line.includes('const ') || line.includes('await ') || line.includes('return ');
+                    return (
+                      <div key={`${activeStep}-${idx}`} className="flex gap-4 py-0.5">
+                        <span className="text-background/20 select-none w-6 text-right shrink-0">{idx + 1}</span>
+                        <span className={isComment ? 'text-emerald-400/80 italic' : isKeyword ? 'text-violet-300' : 'text-background/90'}>
+                          {line}
+                        </span>
+                      </div>
+                    );
+                  })}
                 </pre>
               </div>
 
-              {/* Status */}
-              <div className="px-6 py-4 border-t border-background/10 flex items-center gap-3">
-                <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                <span className="text-xs font-mono text-background/40">Ready</span>
+              {/* Window Footer Status */}
+              <div className="px-5 py-3 border-t border-background/15 flex items-center justify-between text-xs font-mono text-background/50 bg-background/[0.02]">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>Pipeline: Validated</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <Play className="w-3 h-3 text-background/40" />
+                  <span>Execution: ~42ms</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes progress {
-          from { width: 0%; }
-          to { width: 100%; }
-        }
-        
-        .code-line-reveal {
-          opacity: 0;
-          transform: translateX(-8px);
-          animation: lineReveal 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-        }
-        
-        @keyframes lineReveal {
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-        
-        .code-char-reveal {
-          opacity: 0;
-          filter: blur(8px);
-          animation: charReveal 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-        }
-        
-        @keyframes charReveal {
-          to {
-            opacity: 1;
-            filter: blur(0);
-          }
-        }
-      `}</style>
     </section>
   );
 }
